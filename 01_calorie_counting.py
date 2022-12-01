@@ -65,4 +65,18 @@ for elf in elves:
         max_calories = elf.get_calories()
         biggest_elf = elf.get_id()
 
-print(biggest_elf, max_calories)
+#print(biggest_elf, max_calories)
+print(f'The largest number of calories carried by an elf is {max_calories}')
+
+#   Part 2 get calories from top 3 elves
+
+calorie_list = 0
+
+z = [elf.get_calories() for elf in elves]    
+z.sort(reverse=True)
+#print(z)
+
+for i in range(3):
+    #print(z[i])
+    calorie_list += z[i]
+print(f'The top 3 elves are carrying {calorie_list} calories.')
