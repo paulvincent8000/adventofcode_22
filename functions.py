@@ -9,7 +9,8 @@ class Reader():
             self.lines = f.readlines()
 
     def get_lines(self) -> list:
-       return [x[:-1] for x in self.lines]
+        #return [x[:-1] for x in self.lines]
+        return [x.replace('\n', '') for x in self.lines]
 
     def get_raw_lines(self) -> list:
         '''Unprocessed list including line feeds.'''
