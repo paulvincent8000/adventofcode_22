@@ -27,6 +27,10 @@ class ElfPair():
         b_in_a = self.a_start <= self.b_start and self.a_end >= self.b_end
         return a_in_b or b_in_a
 
+    def is_overlapped(self) -> bool:
+        a_in_b = self.a_start > self.b_end
+        b_in_a = self.b_start > self.a_end
+        return not (a_in_b or b_in_a)
 
     def __str__(self) -> str:
         return self.sections
@@ -64,15 +68,14 @@ for assignment in all_assignments.get_all_assignments():
     elf_pair = ElfPair(assignment)
     elf_pair.split_sections()
     elf_pair.split_start_end()
-    if elf_pair.is_fully_contained():
+    # Part I
+    #if elf_pair.is_fully_contained():
+    # Part II
+    if elf_pair.is_overlapped():
         score += 1
     print(assignment, elf_pair.is_fully_contained(), score)
 
-#print(all_assignments)
-#sections = '2-4,6-8'
-#section1 = sections.split(',')[0]
-#section2 = sections.split(',')[1]
-#print(sections, section1, section2)
+
 
 
 
