@@ -27,6 +27,12 @@ def stack_crate(stacks, stack, crate) -> None:
 def remove_crate(stacks, stack) -> str:
     return stacks[stack].pop()
 
+def remove_crate_pack(stacks, stack, number_of_containers) -> list:
+    crate_pack = stacks[stack][-number_of_containers:]
+    for i in range(number_of_containers):
+        stacks[stack].pop()
+    return crate_pack
+
 def parse_stack_lines(line) -> list:
     i = []
     for stack in range(1, len(line), 4):
@@ -70,11 +76,15 @@ for line in move_lines.get_lines():
     to_stack = int(parse_move[2])-1
     #print(line, parse_move ,number_of_containers, from_stack, to_stack)
 
-    for movement in range(number_of_containers):
-        crate = remove_crate(stacks, from_stack)
-        stack_crate(stacks, to_stack, crate)
+#    for movement in range(number_of_containers):
+#        crate = remove_crate(stacks, from_stack)
+#        stack_crate(stacks, to_stack, crate)
 
 #print(stacks, from_stack, to_stack, number_of_containers, crate)
+    #print(stacks)
+    crates = remove_crate_pack(stacks, from_stack, number_of_containers)
+    for crate in crates:
+        stack_crate(stacks, to_stack, crate)
 
 top_crates = []
 for stack in stacks:
@@ -83,3 +93,7 @@ print(top_crates)
 
 # Part II
 # =================================
+
+#print(stacks[from_stack], remove_crate_pack(stacks, from_stack, 1) )
+
+
