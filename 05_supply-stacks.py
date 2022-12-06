@@ -1,8 +1,9 @@
 import functions as fn
+import re
 
 # get input for stacks
-stack_data = 'inputa.txt'
-#stack_data = 'input_05a.txt'
+#stack_data = 'inputa.txt'
+stack_data = 'input_05a.txt'
 stack_lines = fn.Reader(stack_data).get_lines()
 
 # find the number of stacks
@@ -22,6 +23,9 @@ def build_empty_stacks(number_of_stacks) -> list:
 def stack_crate(stacks, stack, crate) -> None:
     stacks[stack].append(crate)
     return
+
+def remove_crate(stacks, stack) -> str:
+    return stacks[stack].pop()
 
 def parse_stack_lines(line) -> list:
     i = []
@@ -50,10 +54,32 @@ for line in stack_lines:
 for stack in stacks:
     stack.reverse()
 
-# print(stacks)
+#print(stacks)
         
+#=========================================
 
-# get input for moves
-# parse moves
-# execute move
-# find top container in stack
+move_data = 'input_05b.txt'
+#move_data = 'inputb.txt'
+
+move_lines = fn.Reader(move_data)
+
+for line in move_lines.get_lines():
+    parse_move = re.findall('\d+', line)
+    number_of_containers = int(parse_move[0])
+    from_stack = int(parse_move[1])-1
+    to_stack = int(parse_move[2])-1
+    #print(line, parse_move ,number_of_containers, from_stack, to_stack)
+
+    for movement in range(number_of_containers):
+        crate = remove_crate(stacks, from_stack)
+        stack_crate(stacks, to_stack, crate)
+
+#print(stacks, from_stack, to_stack, number_of_containers, crate)
+
+top_crates = []
+for stack in stacks:
+    top_crates.append(stack.pop())
+print(top_crates)
+
+# Part II
+# =================================
