@@ -14,4 +14,5 @@ Day 5: Supply Stacks - solved [https://adventofcode.com/2022/day/5]
 
 Day 6: Tuning Trouble - solved [https://adventofcode.com/2022/day/6]
 
-Day 7: No Space Left On Drive [https://adventofcode.com/2022/day/7]
+Day 7: No Space Left On Drive - not solved [https://adventofcode.com/2022/day/7]
+
