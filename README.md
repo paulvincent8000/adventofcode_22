@@ -12,5 +12,6 @@ Day 4: Camp Cleanup - solved [https://adventofcode.com/2022/day/4]
 
 Day 5: Supply Stacks - solved [https://adventofcode.com/2022/day/5]
 
-Day 6: Tuning Trouble [https://adventofcode.com/2022/day/6]
+Day 6: Tuning Trouble - solved [https://adventofcode.com/2022/day/6]
 
+Day 7: No Space Left On Drive [https://adventofcode.com/2022/day/7]
