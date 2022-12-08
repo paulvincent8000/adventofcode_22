@@ -1,8 +1,8 @@
 import pandas as pd
 import functions as fn
 
-data = 'input.txt'
-#data = 'input_08.txt'
+#data = 'input.txt'
+data = 'input_08.txt'
 
 trees = []
 for line in fn.Reader(data).get_lines():
@@ -54,3 +54,54 @@ for row_nr in range(1,number_of_rows-1):
 outside_trees = 2 * number_of_rows + 2 * number_of_cols - 4
 
 print(f'There are {visible_trees + outside_trees} visible trees.')
+
+# part II
+
+def get_scenic_score(dataframe, row_nr, col_nr):
+    loc = dataframe.iloc[ row_nr, col_nr ]
+    row = pd.Series(dataframe.iloc[ row_nr  ])
+    col = pd.Series(dataframe.iloc[ : , col_nr ])
+
+    slice_left = row[:col_nr]
+    slice_right = row[col_nr+1 : ]
+    slice_above = col[:row_nr]
+    slice_below = col[row_nr+1:]
+
+    scenic_score_left = 0
+    for slice in reversed(slice_left):
+        scenic_score_left += 1
+        if slice >= loc:
+            break
+
+    scenic_score_above = 0
+    for slice in reversed(slice_above):
+        scenic_score_above += 1
+        if slice >= loc:
+            break
+
+    scenic_score_right = 0
+    for slice in slice_right:
+        scenic_score_right += 1
+        if slice >= loc:
+            break
+
+    scenic_score_below = 0
+    for slice in slice_below:
+        scenic_score_below += 1
+        if slice >= loc:            
+            break
+    #print(f'below: {scenic_score_below}, right: {scenic_score_right}, above: {scenic_score_above}, left: {scenic_score_left}')
+
+    return scenic_score_left * scenic_score_above * scenic_score_below * scenic_score_right
+
+#test = get_scenic_score(df, 3, 2)
+#print(test)
+
+scenic_scores = []
+for row_nr in range(0,number_of_rows):
+    for col_nr in range(0,number_of_cols):
+        scenic_scores.append(get_scenic_score(df, row_nr, col_nr))
+        #print(row_nr,col_nr)
+#print(scenic_scores, max(scenic_scores))
+
+print(f'The highest possible scenic score is {max(scenic_scores)}')
