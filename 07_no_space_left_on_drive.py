@@ -1,7 +1,7 @@
 import functions as fn
 
-#data = 'input.txt'
-data = 'input_07.txt'
+data = 'input_07test.txt'
+#data = 'input_07.txt'
 
 logs = fn.Reader(data).get_lines()
         
