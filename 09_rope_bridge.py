@@ -1,7 +1,7 @@
 import functions as fn
 
-data = 'input.txt'
-#data = 'input_09.txt'
+#data = 'input.txt'
+data = 'input_09.txt'
 
 steps = fn.Reader(data).get_lines()
 
@@ -37,6 +37,9 @@ class Tail():
         self.trail.append( (self.xtail,self.ytail) )
 
         return ( self.xtail , self.ytail )
+
+    def get_position(self) -> tuple:
+        return (self.xtail,self.ytail)
 
     def __str__(self) -> str:
         return f'Unique locations visited: {len(set(self.trail))}'
@@ -114,6 +117,7 @@ print(f'The tail visited {len(coordinates_visited)} positions.')
 # remove duplicate coordinates
 # count coordinates visited
 
+# Refactor to use class
 # ====================================================
 xhead = 0
 yhead = 0
@@ -131,3 +135,27 @@ for step in steps:
 #        print((xhead,yhead),tail.move_tail((xhead,yhead)))
 
 print(tail)
+
+# Part 2
+# ====================================================
+
+xhead = 0
+yhead = 0
+
+# build tails
+tails = []
+for i in range(9):
+    tails.append(Tail())
+
+for step in steps:
+    moves = build_head_instructions(step)
+
+    for move in moves:
+        move_head(move)
+
+        tails[0].move_tail( (xhead,yhead) )
+        for i in range(1,9):
+            tails[i].move_tail( tails[i-1].get_position() )
+
+#print(tails[8], tails[8].trail)    
+print(tails[8])    
