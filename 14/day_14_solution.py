@@ -52,11 +52,13 @@ if __name__ == "__main__":
     
     # get input data
     data = "sample_input.txt"
+    #data = "full_input.txt"
     lines = fn.Reader(current+"/"+data).get_lines()
     
     # get x and y headers and build empty dataframe
     rangex = [x for x in range(get_coordinate_range(lines)[1]+1) if x >= get_coordinate_range(lines)[0]]
     rangey = [x for x in range(get_coordinate_range(lines)[3]+1)]
-    
     df = pd.DataFrame(index=rangey, columns=rangex)
-    print(df)
+    #print(df)
+
+    print( df.iloc[497] )
