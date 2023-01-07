@@ -45,6 +45,29 @@ def get_coordinate_range(lines) -> list:
         #print( yline, ymax )
     return [xmin, xmax, ymin, ymax]
 
+def create_dataframe(lines) -> pd.DataFrame:
+    '''Returns an empty dataframe scaled to coordinate range.'''
+    # get x and y headers and build empty dataframe
+    rangex = [x for x in range(get_coordinate_range(lines)[1]+1) if x >= get_coordinate_range(lines)[0]]
+    rangey = [x for x in range(get_coordinate_range(lines)[3]+1)]
+    df = pd.DataFrame(index=rangey, columns=rangex)
+    df.loc[:,:] = '.'
+
+    return df
+
+def plot_structures(dataframe: pd.DataFrame, lines: list) -> pd.DataFrame:
+    for line in lines:
+        structures = parse_line(line)
+        
+        for i in range(len(structures)-1):
+            xstart = min(structures[i][0], structures[i+1][0])
+            xend = max(structures[i][0], structures[i+1][0])
+            ystart = min(structures[i][1], structures[i+1][1])
+            yend = max(structures[i][1], structures[i+1][1])
+            dataframe.loc[ystart:yend, xstart:xend] = '#'
+    
+    return dataframe
+
 # EXECUTE
 # ----------------------------------------------------------------------------
 
@@ -55,10 +78,8 @@ if __name__ == "__main__":
     #data = "full_input.txt"
     lines = fn.Reader(current+"/"+data).get_lines()
     
-    # get x and y headers and build empty dataframe
-    rangex = [x for x in range(get_coordinate_range(lines)[1]+1) if x >= get_coordinate_range(lines)[0]]
-    rangey = [x for x in range(get_coordinate_range(lines)[3]+1)]
-    df = pd.DataFrame(index=rangey, columns=rangex)
-    #print(df)
+    df = create_dataframe(lines)
 
-    print( df.iloc[497] )
+    df = plot_structures(df, lines)
+
+    print(df)
